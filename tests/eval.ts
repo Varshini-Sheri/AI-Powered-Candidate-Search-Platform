@@ -6,14 +6,15 @@
 import { existsSync, readFileSync } from "node:fs";
 import { call, makePaid, pageAll, resetCompany, signIn } from "./lib";
 
-// USD per million tokens. Defaults are Claude Haiku 5.5 list prices (prompts under
-// 100k tokens). For another model set EVAL_PRICE_INPUT, EVAL_PRICE_OUTPUT and
-// EVAL_PRICE_CACHE_READ to its current list prices.
+
+// USD per million tokens. Defaults are Gemini 3.5 Flash-Lite paid-tier list prices
+// (output includes thinking tokens). For another model set EVAL_PRICE_INPUT,
+// EVAL_PRICE_OUTPUT and EVAL_PRICE_CACHE_READ to its current list prices.
 const price = (name: string, fallback: number) => (process.env[name] ? Number(process.env[name]) : fallback);
 const PRICE = {
-  input: price("EVAL_PRICE_INPUT", 0.1),
-  output: price("EVAL_PRICE_OUTPUT", 0.5),
-  cacheRead: price("EVAL_PRICE_CACHE_READ", 0.01),
+  input: price("EVAL_PRICE_INPUT", 0.3),
+  output: price("EVAL_PRICE_OUTPUT", 2.5),
+  cacheRead: price("EVAL_PRICE_CACHE_READ", 0.03),
 };
 let modelSeen = "";
 
