@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --color-paper: #f8f8fb;
+  --color-surface: #ffffff;
+  --color-ink: #171717;
+  --color-muted: #5c5b66;
+  --color-faint: #8e8c9b;
+  --color-line: #e9e8ef;
+  --color-line-strong: #dad8e3;
+  --color-marker: #725cf2;
+  --color-marker-ink: #ffffff;
+  --color-marker-soft: #efebfe;
+  --color-amber: #8a5300;
+  --color-amber-soft: #fff1d6;
+  --color-stop: #a8322a;
+  --color-stop-soft: #fbe9e7;
+  --color-ok: #1f6f4a;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background:
+    radial-gradient(ellipse 50% 28% at 50% 0%, rgba(114, 92, 242, 0.05), transparent 70%),
+    var(--color-paper);
+  background-attachment: fixed;
+  color: var(--color-ink);
+  font-feature-settings: "tnum" 1, "cv11" 1;
+  letter-spacing: -0.006em;
+  line-height: 1.55;
+}
+
+/* In the base layer, so a component can turn it off (the search box draws its own ring). */
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--color-marker);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@keyframes shimmer {
+  from { background-position: -200% 0; }
+  to { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #ece9f6 25%, #f7f5fd 37%, #ece9f6 63%);
+  background-size: 400% 100%;
+  animation: shimmer 1.4s ease infinite;
+}
+
+@keyframes sheet-in-right { from { transform: translateX(100%); } to { transform: translateX(0); } }
+@keyframes sheet-in-bottom { from { transform: translateY(100%); } to { transform: translateY(0); } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+/* One surface treatment for cards across pages. */
+@utility card {
+  border: 1px solid var(--color-line);
+  border-radius: 1rem;
+  background: var(--color-surface);
+  box-shadow: 0 1px 2px rgba(23, 23, 23, 0.04), 0 4px 16px -8px rgba(23, 23, 23, 0.06);
+}
+
+/* App backdrop: a faint lavender dot grid and glow that fade into the page. Cards stay solid white on top. */
+@utility app-backdrop {
+  &::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse 55% 45% at 50% 38%, rgba(114, 92, 242, 0.045), transparent 75%),
+      radial-gradient(circle, rgba(184, 173, 235, 0.3) 0.9px, transparent 1.3px) 0 0 / 23px 23px;
+    mask-image: radial-gradient(ellipse 75% 70% at 50% 38%, #000 30%, transparent 90%);
+  }
+}
+
+@utility anim-fade { animation: fade-in 160ms ease-out; }
+@utility anim-right { animation: sheet-in-right 220ms cubic-bezier(.2,.8,.2,1); }
+@utility anim-bottom { animation: sheet-in-bottom 220ms cubic-bezier(.2,.8,.2,1); }
+
+.scrollbar-none { scrollbar-width: none; }
+.scrollbar-none::-webkit-scrollbar { display: none; }

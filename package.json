@@ -1,0 +1,49 @@
+{
+  "name": "rotto-fullstack-task-varshini",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "dev": "next dev -p 3000",
+    "build": "next build",
+    "start": "next start -p 3000",
+    "typecheck": "tsc --noEmit",
+    "env:write": "tsx scripts/write-env.ts",
+    "seed:users": "tsx scripts/seed-users.ts",
+    "data:load": "tsx scripts/load-candidates.ts",
+    "data:inspect": "tsx scripts/inspect-data.ts",
+    "eval": "tsx tests/eval.ts",
+    "test:search": "tsx tests/search.test.ts",
+    "test:security": "tsx tests/security.test.ts",
+    "test:billing": "tsx tests/billing.test.ts",
+    "test:quota": "tsx tests/quota.test.ts",
+    "check:secrets": "tsx scripts/check-secrets.ts",
+    "stripe": "tsx scripts/stripe.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "0.132.1",
+    "@radix-ui/react-dialog": "1.2.0",
+    "@radix-ui/react-popover": "1.2.0",
+    "@supabase/supabase-js": "2.117.3",
+    "geist": "1.7.2",
+    "lucide-react": "1.52.0",
+    "next": "16.4.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "server-only": "0.0.1",
+    "zod": "4.6.5"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "4.3.3",
+    "@types/node": "24.19.1",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "supabase": "2.119.0",
+    "tailwindcss": "4.3.3",
+    "tsx": "4.23.15",
+    "typescript": "5.9.3"
+  }
+}

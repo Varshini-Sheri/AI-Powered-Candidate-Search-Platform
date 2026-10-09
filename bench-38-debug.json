@@ -1,0 +1,157 @@
+{
+  "at": "2026-10-09T05:50:42.417Z",
+  "runs": 1,
+  "delayMs": 0,
+  "models": [
+    "gemini:gemini-3.8-flash thinking=low"
+  ],
+  "summary": [
+    {
+      "model": "gemini:gemini-3.8-flash thinking=low",
+      "searches": 10,
+      "failed": 4,
+      "precision": 1,
+      "recall": 1,
+      "f1": 1,
+      "micro_precision": 1,
+      "micro_recall": 1,
+      "micro_f1": 1,
+      "llm_p50": 2152,
+      "llm_p95": 2382,
+      "search_p50": 2369.736901,
+      "search_p95": 2681.543712999999,
+      "full_p50": 2416.383396000001,
+      "full_p95": 2937.9180799999995
+    }
+  ],
+  "samples": [
+    {
+      "model": "gemini:gemini-3.8-flash thinking=low",
+      "run": 1,
+      "brief": "senior React engineers in New York who have worked at a startup",
+      "ok": false,
+      "expected": 21,
+      "error": "HTTP 500 {\"error\":\"server_error\",\"message\":\"Something went wrong.\"}"
+    },
+    {
+      "model": "gemini:gemini-3.8-flash thinking=low",
+      "run": 1,
+      "brief": "product designers in San Francisco who are open to work",
+      "ok": false,
+      "expected": 29,
+      "error": "HTTP 500 {\"error\":\"server_error\",\"message\":\"Something went wrong.\"}"
+    },
+    {
+      "model": "gemini:gemini-3.8-flash thinking=low",
+      "run": 1,
+      "brief": "data scientists with a PhD",
+      "ok": true,
+      "expected": 47,
+      "llm_ms": 1858,
+      "search_ms": 2123.9922110000007,
+      "full_ms": 2281.494687999999,
+      "precision": 1,
+      "recall": 1,
+      "f1": 1,
+      "returned": 47,
+      "hits": 47,
+      "reported_model": "gemini:gemini-3.8-flash"
+    },
+    {
+      "model": "gemini:gemini-3.8-flash thinking=low",
+      "run": 1,
+      "brief": "backend engineers in Austin who know Go and Kubernetes",
+      "ok": true,
+      "expected": 7,
+      "llm_ms": 2155,
+      "search_ms": 2447.8117969999985,
+      "full_ms": 2497.6474070000004,
+      "precision": 1,
+      "recall": 1,
+      "f1": 1,
+      "returned": 7,
+      "hits": 7,
+      "reported_model": "gemini:gemini-3.8-flash"
+    },
+    {
+      "model": "gemini:gemini-3.8-flash thinking=low",
+      "run": 1,
+      "brief": "staff full stack engineers in Seattle",
+      "ok": false,
+      "expected": 18,
+      "error": "HTTP 500 {\"error\":\"server_error\",\"message\":\"Something went wrong.\"}"
+    },
+    {
+      "model": "gemini:gemini-3.8-flash thinking=low",
+      "run": 1,
+      "brief": "machine learning engineers who studied at Stanford",
+      "ok": false,
+      "expected": 21,
+      "error": "HTTP 500 {\"error\":\"server_error\",\"message\":\"Something went wrong.\"}"
+    },
+    {
+      "model": "gemini:gemini-3.8-flash thinking=low",
+      "run": 1,
+      "brief": "account executives in Chicago with enterprise sales experience",
+      "ok": true,
+      "expected": 22,
+      "llm_ms": 2382,
+      "search_ms": 2681.543712999999,
+      "full_ms": 2785.3673560000025,
+      "precision": 1,
+      "recall": 1,
+      "f1": 1,
+      "returned": 22,
+      "hits": 22,
+      "reported_model": "gemini:gemini-3.8-flash"
+    },
+    {
+      "model": "gemini:gemini-3.8-flash thinking=low",
+      "run": 1,
+      "brief": "junior frontend engineers in Boston who are open to work",
+      "ok": true,
+      "expected": 2,
+      "llm_ms": 2104,
+      "search_ms": 2369.736901,
+      "full_ms": 2416.383396000001,
+      "precision": 1,
+      "recall": 1,
+      "f1": 1,
+      "returned": 2,
+      "hits": 2,
+      "reported_model": "gemini:gemini-3.8-flash"
+    },
+    {
+      "model": "gemini:gemini-3.8-flash thinking=low",
+      "run": 1,
+      "brief": "mobile engineers who know Swift",
+      "ok": true,
+      "expected": 199,
+      "llm_ms": 2200,
+      "search_ms": 2481.0383650000003,
+      "full_ms": 2937.9180799999995,
+      "precision": 1,
+      "recall": 1,
+      "f1": 1,
+      "returned": 199,
+      "hits": 199,
+      "reported_model": "gemini:gemini-3.8-flash"
+    },
+    {
+      "model": "gemini:gemini-3.8-flash thinking=low",
+      "run": 1,
+      "brief": "product managers who speak Japanese",
+      "ok": true,
+      "expected": 0,
+      "llm_ms": 2152,
+      "search_ms": 2209.991415999997,
+      "full_ms": 2259.4755750000004,
+      "precision": 1,
+      "recall": 1,
+      "f1": 1,
+      "returned": 0,
+      "hits": 0,
+      "reported_model": "gemini:gemini-3.8-flash"
+    }
+  ]
+}
