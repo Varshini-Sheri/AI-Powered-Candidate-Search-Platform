@@ -30,7 +30,8 @@ export type RoleFamily = (typeof ROLE_FAMILIES)[number];
 export const SENIORITY = ["junior", "mid", "senior", "staff_plus"] as const;
 export type Seniority = (typeof SENIORITY)[number];
 
-export const EDUCATION_LEVELS = ["associate", "bachelors", "masters", "phd", "other"] as const;
+// Umbrella levels (bachelors, masters) plus the specific degrees under them, so a brief can name either.
+export const EDUCATION_LEVELS = ["associate", "bachelors", "bs", "ba", "masters", "ms", "mba", "phd", "other"] as const;
 export type EducationLevel = (typeof EDUCATION_LEVELS)[number];
 
 export const ROLE_LABELS: Record<RoleFamily, string> = {
@@ -67,7 +68,11 @@ export const SENIORITY_LABELS: Record<Seniority, string> = {
 export const EDUCATION_LABELS: Record<EducationLevel, string> = {
   associate: "Associate degree",
   bachelors: "Bachelor's",
+  bs: "BS",
+  ba: "BA",
   masters: "Master's",
+  ms: "MS",
+  mba: "MBA",
   phd: "PhD",
   other: "Other",
 };
@@ -283,13 +288,17 @@ export function locationTerms(parts: string[]): string[] {
 
 // Education ----------------------------------------------------------------------------
 
-export function educationLevel(degree: string | null | undefined): EducationLevel {
+/** Umbrella level first, then the specific degree when one is recognisable. */
+export function educationLevels(degree: string | null | undefined): EducationLevel[] {
   const d = (degree ?? "").toLowerCase();
-  if (/ph\.?\s?d|doctor|d\.phil/.test(d)) return "phd";
-  if (/master|\bm\.?\s?s\.?c?\b|\bmba\b|\bm\.?\s?eng\b|\bm\.?\s?a\b|\bm\.?\s?tech\b/.test(d)) return "masters";
-  if (/bachelor|\bb\.?\s?s\.?c?\b|\bb\.?\s?a\b|\bb\.?\s?tech\b|\bb\.?\s?eng\b|\bb\.?\s?e\b|undergrad/.test(d)) return "bachelors";
-  if (/associate/.test(d)) return "associate";
-  return "other";
+  if (/ph\.?\s?d|doctor|d\.phil/.test(d)) return ["phd"];
+  if (/\bmba\b/.test(d)) return ["masters", "mba"];
+  if (/master|\bm\.?\s?s\.?c?\b|\bm\.?\s?eng\b|\bm\.?\s?a\b|\bm\.?\s?tech\b/.test(d)) return /\bm\.?\s?s\.?c?\b|master of science/.test(d) ? ["masters", "ms"] : ["masters"];
+  if (/bachelor|\bb\.?\s?s\.?c?\b|\bb\.?\s?a\b|\bb\.?\s?tech\b|\bb\.?\s?eng\b|\bb\.?\s?e\b|undergrad/.test(d)) {
+    return /\bb\.?\s?s\.?c?\b|bachelor of science/.test(d) ? ["bachelors", "bs"] : /\bb\.?\s?a\b|bachelor of arts/.test(d) ? ["bachelors", "ba"] : ["bachelors"];
+  }
+  if (/associate/.test(d)) return ["associate"];
+  return ["other"];
 }
 
 // Company traits ---------------------------------------------------------------------------

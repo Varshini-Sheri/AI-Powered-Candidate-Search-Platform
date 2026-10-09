@@ -23,10 +23,11 @@ FIELDS
   ("React and TypeScript" -> two constraints). Alternatives -> one constraint with several values ("React or Vue").
 - location: city, state or country as written, or "remote". Alternatives go in one constraint.
 - company: employer names. company_trait: startup or enterprise.
-- education_level: ${EDUCATION_LEVELS.join(", ")}. school: university names. field_of_study: e.g. computer science.
+- education_level: ${EDUCATION_LEVELS.join(", ")}. Use the specific degree (ms, mba, bs, ba) when the brief names it,
+  masters or bachelors only when it says just "master's" or "bachelor's". school: university names. field_of_study: e.g. computer science.
   An institution after "studied at", "went to", "graduated from", "a degree from", "attended" or "<name> alum(ni)"
-  is a school constraint (required unless softened). A subject after "studied", "majored in" or "a degree in"
-  is field_of_study. "Studied computer science at MIT" -> both. A job ("machine learning engineers") is a role,
+  is a school constraint (required unless softened). A subject after "studied" (directly, never "studied at"), "majored in" or "a degree in"
+  is field_of_study. "Studied at X" or "went to X" names only a school: leave field_of_study out. "Studied computer science at MIT" -> both. A job ("machine learning engineers") is a role,
   never a field_of_study. Add education_level only when the brief names a degree; "graduated from X" names none.
 - One constraint per organization: never repeat the same company or school under another name.
 - values: always put the name as the brief writes it in values, e.g. school values ["NYU"].

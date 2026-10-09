@@ -198,8 +198,9 @@ function mapValue(field: LooseConstraint["field"], value: string, vocab: Vocab):
     case "education_level": {
       const k = simpleKey(v);
       const level = (EDUCATION_LEVELS as readonly string[]).includes(k) ? k
-        : /phd|doctor/.test(k) ? "phd" : /master|mba|ms\b|msc/.test(k) ? "masters"
-        : /bachelor|bs\b|ba\b|bsc|undergrad/.test(k) ? "bachelors" : /associate/.test(k) ? "associate" : null;
+        : /phd|doctor/.test(k) ? "phd" : /\bmba\b/.test(k) ? "mba" : /\bm\.?s\.?c?\b|master of science/.test(k) ? "ms"
+        : /master/.test(k) ? "masters" : /\bb\.?s\.?c?\b|bachelor of science/.test(k) ? "bs" : /\bb\.?a\b|bachelor of arts/.test(k) ? "ba"
+        : /bachelor|undergrad/.test(k) ? "bachelors" : /associate/.test(k) ? "associate" : null;
       return level ? [{ key: level, label: EDUCATION_LABELS[level as keyof typeof EDUCATION_LABELS], count: 0 }] : [];
     }
     case "skill": {

@@ -5,7 +5,7 @@
 
 import {
   companyKey,
-  educationLevel,
+  educationLevels,
   locationTerms,
   roleFamiliesFromTitle,
   seniorityFromTitle,
@@ -260,7 +260,7 @@ export function candidateRow(raw: Raw): CandidateRow {
     traits: [...traits],
     current_traits: current?.traits ?? [],
     open_to_work: typeof openToWork === "boolean" ? openToWork : null,
-    edu_levels: [...new Set(education.map((e) => educationLevel(e.degree)))],
+    edu_levels: [...new Set(education.flatMap((e) => educationLevels(e.degree)))],
     school_keys: [...new Set(education.map((e) => e.school).filter((s): s is string => !!s).map(simpleKey))],
     field_keys: [...new Set(education.map((e) => e.field).filter((s): s is string => !!s).map(simpleKey))],
     profile: {

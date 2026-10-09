@@ -199,7 +199,8 @@ export function groundInBrief(brief: string, constraints: LooseConstraint[]): Lo
       const studied = seen.some(({ i, len }) => STUDY_BEFORE.test(b.slice(Math.max(0, i - 40), i + 1)) || STUDY_AFTER.test(b.slice(i + len - 1)));
       if (seen.length && !studied) return drop(c, "subject appears only as a job description");
       // Reworded by the model ("designers" -> design): keep it only if the brief talks about studying.
-      if (!seen.length && !STUDY_ANYWHERE.test(b)) return drop(c, "brief says nothing about a subject studied");
+      // "studied at X" names an institution, not a subject.
+      if (!seen.length && !STUDY_ANYWHERE.test(b.replace(/\bstud(y|ied|ying)\s+(at|with)\b/g, " "))) return drop(c, "brief says nothing about a subject studied");
     }
     return true;
   });
