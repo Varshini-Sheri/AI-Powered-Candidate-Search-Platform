@@ -70,6 +70,8 @@ function Saved() {
           <ul className="space-y-3">
             {items.map((s) => {
               const cons = (s.filters.constraints ?? []) as Constraint[];
+              const savedOn = new Date(s.created_at).toLocaleDateString("en-US", { month: "short", day: "numeric" });
+              const total = s.searches?.total;
               return (
                 <li key={s.id} className="card flex flex-col gap-4 p-4 sm:flex-row sm:items-start sm:gap-6 sm:p-5">
                   <div className="min-w-0 flex-1">
@@ -79,22 +81,31 @@ function Saved() {
                         {cons.map((c) => `${c.mode === "excluded" ? "not " : ""}${chipText(c)}${c.mode === "preferred" ? " (nice to have)" : ""}`).join(" · ")}
                       </p>
                     )}
-                    <p className="mt-3 text-xs font-medium text-faint">
-                      Saved {new Date(s.created_at).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
-                      {typeof s.searches?.total === "number" && ` · ${s.searches.total.toLocaleString()} ${s.searches.total === 1 ? "person" : "people"}`}
-                    </p>
+                    <p className="mt-3 text-xs font-medium text-faint">Saved {savedOn}</p>
                   </div>
                   <div className="flex shrink-0 flex-wrap items-start gap-2 border-t border-line pt-4 sm:border-0 sm:pt-0">
                     {s.search_id && (
-                      <Link href={`/?s=${s.search_id}`} className={btn.secondary}>
-                        View results
-                      </Link>
+                      <div className="flex flex-col items-center">
+                        <Link href={`/?s=${s.search_id}`} className={btn.secondary} title="Open the results you saved. Free, and the same people as before.">
+                          View results
+                        </Link>
+                        <span className="mt-1 text-[11px] text-faint">
+                          {typeof total === "number" ? `${total.toLocaleString()} from ${savedOn}` : `From ${savedOn}`}
+                        </span>
+                      </div>
                     )}
                     <div className="flex flex-col items-center">
-                      <button className={btn.primary} onClick={() => (exhausted ? setPaywall(true) : run(s))} disabled={running !== null}>
-                        <Search size={15} /> {running === s.id ? "Searching…" : "Search again"}
+                      <button
+                        className={btn.primary}
+                        onClick={() => (exhausted ? setPaywall(true) : run(s))}
+                        disabled={running !== null}
+                        title="Run this search again on today's candidates. New people may appear."
+                      >
+                        <Search size={15} /> {running === s.id ? "Searching…" : "Find new matches"}
                       </button>
-                      {plan?.plan === "free" && !exhausted && <span className="mt-1 text-[11px] text-faint">Uses your free search</span>}
+                      <span className="mt-1 text-[11px] text-faint">
+                        {plan?.plan === "free" && !exhausted ? "Uses your free search" : "Searches today's candidates"}
+                      </span>
                     </div>
                     <button className={`${btn.ghost} h-10 w-10 px-0 hover:text-stop`} onClick={() => remove(s)} aria-label={`Delete saved search ${s.brief}`}>
                       <Trash2 size={16} />
