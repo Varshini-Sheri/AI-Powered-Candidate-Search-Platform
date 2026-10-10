@@ -53,9 +53,11 @@ Held-out answers are computed from `candidates.json` by rules that reproduce all
 
 ## Tradeoffs
 
-- **Small model plus deterministic checks** over a bigger model: faster, cheaper, testable. The word-based checks are heuristics, the least elegant part.
-- **Only `active` is paid**; `trialing` and `past_due` count as free.
-- **Filters over embeddings:** exact requirements need exact matches, and "nobody fits" must be a possible answer.
-- **Result snapshots:** fast, stable paging, but they don't reflect later candidate edits.
+- **One schema-forced call, not an agent or a bigger model.** A single translation step under a 3 s budget doesn't need tool loops, and 3.8 Flash was slower without being more reliable. Cost: a small model invents filters, so I check them with word rules, which are heuristics and the least elegant part.
+- **Fail closed.** An unsupported requirement returns nobody instead of a broader list. Cost: some searches come back empty, which is why every filter is editable.
+- **Filters over embeddings.** Exact requirements need exact matches and real exclusions, and "nobody fits" must be a possible answer. Cost: no fuzzy "similar to" matching.
+- **Quota as reservations, not a counter.** Concurrent requests can't overspend and a crash can't burn the free search. Cost: a 30 s expiry and rules for what counts.
+- **Canceled is final; only `active` is paid.** Matches Stripe, where resubscribing creates a new ID, and keeps late events from reviving a subscription. Cost: `trialing` and `past_due` count as free.
+- **Result snapshots.** Fast, stable paging. Cost: results don't reflect later candidate edits.
 
 **With another week:** have each filter cite the brief words it came from instead of heuristics, run labeled regression briefs in CI, rank within filtered results by embeddings, add Playwright tests and per-company rate limits.
