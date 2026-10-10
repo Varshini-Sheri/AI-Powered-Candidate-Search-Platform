@@ -24,6 +24,7 @@
     "stripe": "tsx scripts/stripe.ts"
   },
   "dependencies": {
+    "22": "^0.0.0",
     "@anthropic-ai/sdk": "0.132.1",
     "@radix-ui/react-dialog": "1.2.0",
     "@radix-ui/react-popover": "1.2.0",
