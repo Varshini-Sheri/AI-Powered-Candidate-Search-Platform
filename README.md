@@ -60,4 +60,4 @@ Held-out answers are computed from `candidates.json` by rules that reproduce all
 - **Canceled is final; only `active` is paid.** Matches Stripe, where resubscribing creates a new ID, and keeps late events from reviving a subscription. Cost: `trialing` and `past_due` count as free.
 - **Result snapshots.** Fast, stable paging. Cost: results don't reflect later candidate edits.
 
-**With another week:** have each filter cite the brief words it came from instead of heuristics, run labeled regression briefs in CI, rank within filtered results by embeddings, add Playwright tests and per-company rate limits.
+
